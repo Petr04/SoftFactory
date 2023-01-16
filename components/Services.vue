@@ -47,16 +47,15 @@
 <script>
 import Service from '@/components/Service.vue';
 import { unzip, chunk } from 'lodash';
-import services from '@/services.js';
 
 export default {
+  props: ['services'],
   components: {
     Service,
   },
   data: () => ({
     columns: 3,
     columnsMax: 3,
-    services,
   }),
   computed: {
     servicesDisplay() {

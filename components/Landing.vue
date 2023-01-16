@@ -15,7 +15,7 @@
           >
             Стать клиентом
           </link-no-update>
-          <!-- <a class="button" href="#services">Посмотреть услуги</a> -->
+          <a class="button" href="#services">Посмотреть услуги</a>
         </div>
       </div>
     </div>

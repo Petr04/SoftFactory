@@ -42,12 +42,22 @@ export default {
   modules: [
     '@nuxtjs/recaptcha',
     '@nuxtjs/dotenv',
+    '@nuxtjs/axios',
   ],
 
   recaptcha: {
     version: 2,
     siteKey: process.env.RECAPTCHA_SECRET,
     size: 'invisible',
+  },
+
+  axios: {
+    baseURL: process.env.API_URL || 'http://127.0.0.1:1337/api/',
+    headers: {
+      common: {
+        'Authorization': 'Bearer ' + process.env.API_TOKEN,
+      },
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

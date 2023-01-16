@@ -185,7 +185,6 @@ input[type="submit"] {
 import FormInput from '@/components/FormInput.vue';
 import ChipGroup from '@/components/ChipGroup.vue';
 import SyncLoader from 'vue-spinner/src/SyncLoader.vue';
-import services from '@/services.js';
 import { required, email } from 'vuelidate/lib/validators';
 import { validationMixin } from 'vuelidate';
 import autosize from 'autosize';
@@ -193,7 +192,7 @@ import emailjs from '@emailjs/browser';
 import { mapState, mapMutations } from 'vuex';
 
 export default {
-  props: ['show'],
+  props: ['show', 'services'],
   components: {
     FormInput,
     ChipGroup,
@@ -201,9 +200,7 @@ export default {
   },
   mixins: [ validationMixin ],
   data() {
-    return {
-      serviceList: services,
-      
+    return {      
       name: '',
       email: '',
       phone: '',
@@ -257,35 +254,35 @@ export default {
         name: this.name,
         email: this.email,
         phone: this.phone,
-        service: this.services[this.service].title,
+        service: this.serviceDict[this.service].title,
         description: this.description,
       };
     },
     ...mapState(['showOrder', 'title', 'service']),
-    services() {
-      const services = {};
-      this.serviceList.forEach(
-        service => services[service.name] = service
+    serviceDict() {
+      const serviceDict = {};
+      this.services.forEach(
+        service => serviceDict[service.name] = service
       );
-      return services;
+      return serviceDict;
     },
     serviceNames() {
       const names = {};
-      this.serviceList.forEach(
+      this.services.forEach(
         service => names[service.name] = service.title
       );
       return names;
     },
     serviceOrderTexts() {
       const texts = {};
-      this.serviceList.forEach(
+      this.services.forEach(
         service => texts[service.name] = service.orderText
       );
       return texts;
     },
     searchEngineDescription() {
       return this.service
-        ? this.services[this.service].description
+        ? this.serviceDict[this.service].description
         : null;
     },
   },
@@ -332,7 +329,7 @@ export default {
     service(service) {
       if (service) {
         history.pushState({}, null, '/order/' + service);
-        this.setTitle('Заказать ' + this.services[this.service].orderText);
+        this.setTitle('Заказать ' + this.serviceDict[this.service].orderText);
       } else if (this.showOrder) {
         this.setTitle('Заказ');
         if (this.$route.path != '/order')

@@ -2,9 +2,9 @@
   <div>
     <div :class="{ dimmable: true, dimmed: showOrder }">
       <landing />
-      <services />
+      <services :services="services" />
     </div>
-    <order :show="showOrder" />
+    <order :show="showOrder" :services="services" />
   </div>
 </template>
 
@@ -34,6 +34,11 @@ export default {
   },
   computed: {
     ...mapState(['showOrder']),
+  },
+  async asyncData({ $axios }) {
+    const response = await $axios.$get('services');
+    const services = response.data.map(entry => entry.attributes);
+    return { services };
   },
 };
 </script>

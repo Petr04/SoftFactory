@@ -12,13 +12,7 @@ export function createRouter() {
     mode: 'history',
     routes: [
       { path: '/', component: Index },
-      {
-        path: '/order*',
-        component: Index,
-        beforeChange(to, from) {
-          // console.log('big biba nigga');
-        }
-      },
+      { path: '/order*', component: Index },
       { path: '/privacy', component: Privacy },
       { path: '/data-processing-consent', component: DataProcessingConsent },
     ],
