@@ -1,21 +1,31 @@
 <template>
   <div>
-    <div :class="{ dimmable: true, dimmed: showOrder }">
-      <landing />
-      <services :services="services" />
-    </div>
+    <landing />
+    <services :services="services" />
     <order :show="showOrder" :services="services" />
+    <div class="dimmer" :class="{ active: showOrder }" />
   </div>
 </template>
 
 <style>
-.dimmable {
-  transition: .3s ease;
+#order {
+  z-index: 1;
 }
 
-.dimmable.dimmed {
-  filter: brightness(0);
+.dimmer {
   pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #000000aa;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.dimmer.active {
+  opacity: 1;
 }
 </style>
 
