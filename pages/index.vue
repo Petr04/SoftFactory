@@ -3,15 +3,11 @@
     <landing />
     <services :services="services" />
     <order :show="showOrder" :services="services" />
-    <div class="dimmer" :class="{ active: showOrder }" />
+    <div class="dimmer" :class="{ active: showOrder }" @click="setShowOrder(false)" />
   </div>
 </template>
 
 <style>
-#order {
-  z-index: 1;
-}
-
 .dimmer {
   pointer-events: none;
   position: fixed;
@@ -26,6 +22,7 @@
 
 .dimmer.active {
   opacity: 1;
+  pointer-events: auto;
 }
 </style>
 
@@ -40,7 +37,7 @@ export default {
     Services,
   },
   methods: {
-    ...mapMutations(['setService']),
+    ...mapMutations(['setShowOrder']),
   },
   computed: {
     ...mapState(['showOrder']),

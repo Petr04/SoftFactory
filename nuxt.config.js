@@ -17,6 +17,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+      { rel: 'stylesheet', href: 'https://unicons.iconscout.com/release/v2.1.6/css/unicons.css' },
     ],
   },
 
@@ -27,7 +28,6 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '@/plugins/unicons', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -62,5 +62,5 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
 }

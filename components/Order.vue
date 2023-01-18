@@ -1,6 +1,13 @@
 <template>
-  <div id="order" :class="{ show }" ref="order">
-    <form @submit.prevent ref="form" class="gap">
+  <div class="order" ref="order" :class="{ show }">
+    <div class="order-title">
+      <div class="close-button" @click="setShowOrder(false)">
+        <i class="uil uil-times" style="font-size: 20px;"></i>
+      </div>
+      <div class="order-title-text">Заказать услугу</div>
+    </div>
+
+    <form @submit.prevent ref="form" class="order-form gap">
       <form-input
         label="Как вас зовут?"
         :validation="$v.name"
@@ -14,6 +21,7 @@
           v-model="name"
           @input="$v.name.$reset()"
           placeholder="Иван Иванов"
+          @blur="$v.name.$touch()"
         >
       </form-input>
       <form-input
@@ -30,6 +38,7 @@
           v-model="email"
           @input="$v.email.$reset()"
           placeholder="username@example.com"
+          @blur="$v.email.$touch()"
         >
       </form-input>
       <form-input
@@ -46,6 +55,7 @@
           v-model="phone"
           @input="$v.phone.$reset()"
           placeholder="+78001234567"
+          @blur="$v.phone.$touch()"
         >
       </form-input>
       <form-input
@@ -75,6 +85,7 @@
           ref="description"
           placeholder="Опишите заказ"
           rows="7"
+          @blur="$v.description.$touch()"
         ></textarea>
       </form-input>
       <form-input
@@ -106,57 +117,122 @@
         <a href="https://policies.google.com/terms">Условия использования</a> компании Google.
       </small>
       <recaptcha />
-      <div class="hcontainer" style="flex-wrap: wrap-reverse">
-        <button @click="submit" type="submit" class="button main fixed-height" :class="{ success: status == 'ok' }">
-          <template v-if="status == null">Отправить заявку</template>
-          <sync-loader v-else-if="status == 'progress' || status == 'progressCaptcha'" color="white" :size="'10px'" />
-          <unicon v-else-if="status == 'ok'" name="check" fill="white" width="40" height="40" style="margin: -5px" />
-          <template v-else-if="status == 'error' || captchaError">Отправить ещё раз</template>
-        </button>
-        <label v-if="status == 'progressCaptcha'">Проверка каптчи</label>
+      <div>
         <label v-if="status == 'progress'">Заявка отправляется</label>
         <label v-else-if="status == 'ok'">Заявка отправлена</label>
         <label v-else-if="status == 'error'">Возникла ошибка</label>
         <label v-else-if="captchaError">Похоже, вы &ndash; робот</label>
       </div>
     </form>
+    <button
+      class="order-submit-button"
+      :class="{ disabled: !allFieldsFilled, success: status == 'ok' }"
+      @click="() => checkForm() ? submit() : null"
+    >
+      <template v-if="status == null">Отправить заявку</template>
+      <sync-loader v-else-if="status == 'progress'" color="white" :size="'10px'" />
+      <i v-else-if="status == 'ok'" class="uil uil-check" style="color: white; font-size: 40px"></i>
+      <template v-else-if="status == 'error' || captchaError">Отправить ещё раз</template>
+    </button>
   </div>
 </template>
 
 <style scoped>
-#order {
-  --height: calc(100vh - var(--menubar-height));
+.order {
+  --height: 100vh;
   overflow-y: scroll;
   height: var(--height);
-  border-radius: 0 0 20px 20px;
-  background: white;
-  padding: 0 20px;
-  /*padding-top: 30px;*/
-
-  box-shadow: 0px -20px 0px 0 white;
 
   position: fixed;
-  top: calc(var(--height) * -1 - 25px);
-  /*left: calc(50% - var(--width) / 2);*/
+  z-index: 1;
+  overscroll-behavior: contain;
+  bottom: calc(var(--height) * -1 - 25px);
   left: 0;
   right: 0;
+  margin: 0 auto;
+  border-radius: 20px 20px 0 0;
+  width: fit-content;
+  background: white;
 
   transition: .3s ease;
 }
 
-#order.show {
-  top: calc(var(--menubar-height));
-  /*top: 0;*/
-  /*margin-top: calc(var(--menubar-height));*/
+.order.show {
+  bottom: 0;
+}
+
+.order-form {
+  padding: 20px;
+  padding-top: 40px;
+  margin: 0;
+}
+
+.order-title {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: #eee;
+}
+
+.order-title-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 17px;
+}
+
+.close-button {
+  --size: 30px;
+  background: #d3d3d3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100vh;
+  width: var(--size);
+  height: var(--size);
+  z-index: 2;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.close-button:hover {
+  background: #ccc;
+}
+
+.order-submit-button {
+  border: none;
+  font-size: inherit;
+  cursor: pointer;
+
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  height: 50px;
+  color: white;
+  font-family: Montserrat;
+  transition: .3s;
+}
+
+.order-submit-button.disabled {
+  background-color: white;
+  color: #1e1e1e;
+  cursor: default;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-#order::-webkit-scrollbar {
+.order::-webkit-scrollbar {
   display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
-#order {
+.order {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
@@ -206,6 +282,7 @@ export default {
       phone: '',
       description: '',
       personalData: false,
+      console,
 
       status: null,
       captchaError: false,
@@ -258,6 +335,13 @@ export default {
         description: this.description,
       };
     },
+    allFieldsFilled() {
+      const [name, email, phone, description] =
+        [this.name, this.email, this.phone, this.description]
+        .map(str => Boolean(str.trim()));
+
+      return name && (email || phone) && description && this.personalData;
+    },
     ...mapState(['showOrder', 'title', 'service']),
     serviceDict() {
       const serviceDict = {};
@@ -299,30 +383,27 @@ export default {
       return !this.$v.$error;
     },
     async submit() {
+      this.status = 'progress';
+
+      let token;
       try {
-        const token = await this.$recaptcha.getResponse();
-
-        this.status = 'progress';
-
-        if (!this.checkForm()) {
-          this.error = true;
-        } else {
-          emailjs.send(
-            'service_d6rru8u',
-            'new_order',
-            Object.assign(this.result, {
-              'g-recaptcha-response': token,
-            }),
-            'pyLNfNQ1M9PwAfvVF'
-          ).then(
-            () => this.status = 'ok',
-            () => this.status = 'error',
-          );
-          this.$refs.form.$el.submit();
-        }
+        token = await this.$recaptcha.getResponse();
       } catch (error) {
-        this.captchaError = true;
+        this.status = 'captchaError'
+        return;
       }
+
+      emailjs.send(
+        'service_d6rru8u',
+        'new_order',
+        Object.assign(this.result, {
+          'g-recaptcha-response': token,
+        }),
+        'pyLNfNQ1M9PwAfvVF'
+      ).then(
+        () => this.status = 'ok',
+        () => this.status = 'error',
+      );
     },
   },
   watch: {
