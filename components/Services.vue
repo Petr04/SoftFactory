@@ -1,6 +1,6 @@
 <template>
   <div class="services" ref="services">
-    <h1 id="services" style="text-align: center;">Услуги</h1>
+    <h1 id="services">Услуги</h1>
     <div id="service-list" ref="serviceList">
       <div
         v-for="arr, i in servicesDisplay"
@@ -19,10 +19,16 @@
 </template>
 
 <style scoped>
+h1 {
+  text-align: center;
+}
+
 .services {
   --gap: 1em;
   font-size: 18px;
-  margin: 2.5em 0;
+  margin: 2.5em auto;
+  width: min-content;
+  max-width: 100vw;
 }
 
 .services * {
@@ -32,7 +38,7 @@
 #service-list {
   display: flex;
   justify-content: center;
-  padding: 0 var(--gap);
+/*  padding: 0 var(--gap);*/
   gap: var(--gap);
 }
 

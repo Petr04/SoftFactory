@@ -1,11 +1,9 @@
 <template>
   <div id="app">
     <menubar />
-    <div class="under-menu" ref="underMenu">
-      <div>
-        <nuxt />
-        <Footer />
-      </div>
+    <div>
+      <nuxt />
+      <Footer />
     </div>
   </div>
 </template>
@@ -44,13 +42,11 @@ body, .dark-bg, .button.main, .order-submit-button {
 }
 
 #app {
-  width: 100%;
+/*  width: 100%;*/
+/*  max-width: 2000px;*/
+  margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.under-menu {
-  padding-top: var(--menu-height);
 }
 
 h1, h2, h3, h4, h5, h6 {

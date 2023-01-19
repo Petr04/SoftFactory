@@ -27,7 +27,8 @@
   background: white;
   border-radius: 0 0 20px 20px;
 
-  position: fixed;
+  position: sticky;
+  top: 0;
   left: 0;
   right: 0;
 }

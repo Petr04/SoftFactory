@@ -2,6 +2,7 @@
   <div>
     <landing />
     <services :services="services" />
+
     <order :show="showOrder" :services="services" />
     <div class="dimmer" :class="{ active: showOrder }" @click="setShowOrder(false)" />
   </div>
