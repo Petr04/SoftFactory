@@ -9,7 +9,7 @@
       <div class="header">
         <h2>{{ title }}</h2>
         <div class="price">
-          {{ typeof(price) == 'number' ? `от ${formatNumber(price)} &#8381;` : price }}
+          {{ price ? `от ${formatNumber(price)} &#8381;` : 'Цена договорная' }}
         </div>
       </div>
       <div class="description">{{ description }}</div>
