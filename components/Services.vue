@@ -74,7 +74,7 @@ export default {
       }
     },
   },
-  mounted() {
+  beforeMount() {
     setTimeout(() => {
       this.resizeGrid();
       this.resizeGrid();

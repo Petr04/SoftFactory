@@ -13,7 +13,7 @@ export default {
   props: ['to'],
   methods: {
     navigate() {
-      history.pushState({}, null, this.to);
+      history.replaceState({}, null, this.to);
     }
   }
 };

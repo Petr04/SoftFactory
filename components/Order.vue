@@ -409,17 +409,17 @@ export default {
   watch: {
     service(service) {
       if (service) {
-        history.pushState({}, null, '/order/' + service);
+        history.replaceState({}, null, '/order/' + service);
         this.setTitle('Заказать ' + this.serviceDict[this.service].orderText);
       } else if (this.showOrder) {
         this.setTitle('Заказ');
         if (this.$route.path != '/order')
-          history.pushState({}, null, '/order');
+          history.replaceState({}, null, '/order');
       }
     },
     showOrder(showOrder) {
       this.setTitle(showOrder ? 'Заказ' : null);
-      if (!showOrder) history.pushState({}, null, '/');
+      if (!showOrder) history.replaceState({}, null, '/');
     },
   },
   mounted() {
@@ -438,7 +438,7 @@ export default {
     document.addEventListener('keydown', event => {
       if (event.key == 'Escape') {
         this.setShowOrder(false);
-        history.pushState({}, null, '/');
+        history.replaceState({}, null, '/');
       }
     })
   },
