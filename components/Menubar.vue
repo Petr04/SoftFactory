@@ -26,6 +26,7 @@
   font-size: 17px;
   background: white;
   border-radius: 0 0 20px 20px;
+  color: #1e1e1e;
 
   position: sticky;
   top: 0;

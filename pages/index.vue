@@ -1,7 +1,9 @@
 <template>
   <div>
     <landing />
-    <services :services="services" />
+    <div class="container">
+      <services :services="services" />
+    </div>
 
     <order :show="showOrder" :services="services" />
     <div class="dimmer" :class="{ active: showOrder }" @click="setShowOrder(false)" />
@@ -9,6 +11,17 @@
 </template>
 
 <style>
+.container {
+  --gap: 1.5em;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+
+  width: min-content;
+  max-width: 100vw;
+  margin: var(--gap) auto;
+}
+
 .dimmer {
   pointer-events: none;
   position: fixed;

@@ -1,11 +1,12 @@
 <template>
   <div class="services" ref="services">
-    <h1 id="services">Услуги</h1>
-    <div id="service-list" ref="serviceList">
+    <h1>Услуги</h1>
+    <div id="service-list" ref="serviceList" :class="{ compact }">
       <div
         v-for="arr, i in servicesDisplay"
         :key="i"
         class="vertical-container"
+        :class="{ 'one-column': columns == 1 }"
       >
         <service
           v-for="service, j in arr.filter(x => x != undefined)"
@@ -24,11 +25,8 @@ h1 {
 }
 
 .services {
-  --gap: 1em;
+  --gap: 20px;
   font-size: 18px;
-  margin: 2.5em auto;
-  width: min-content;
-  max-width: 100vw;
 }
 
 .services * {
@@ -38,8 +36,12 @@ h1 {
 #service-list {
   display: flex;
   justify-content: center;
-/*  padding: 0 var(--gap);*/
+  padding: 0 var(--gap);
   gap: var(--gap);
+}
+
+#service-list.compact {
+  padding: 0;
 }
 
 .vertical-container {
@@ -47,6 +49,10 @@ h1 {
   flex-direction: column;
   gap: var(--gap);
   width: 20em;
+}
+
+.vertical-container.one-column {
+  width: 30em;
 }
 </style>
 
@@ -62,6 +68,7 @@ export default {
   data: () => ({
     columns: 3,
     columnsMax: 3,
+    compact: false,
   }),
   computed: {
     servicesDisplay() {
@@ -70,21 +77,17 @@ export default {
   },
   methods: {
     resizeGrid() {
-      const em = parseInt(getComputedStyle(this.$refs.services)['font-size']);
-      const listWidth = 20*em * (this.columns) + em * (this.columns + 1);
+      const em = 18;
+      const columnWidth = 20*em;
+      const gap = 20;
 
-      if (window.innerWidth <= listWidth) {
-        this.columns = Math.max(1, this.columns-1);
-      } else if (window.innerWidth - listWidth > 22*em) {
-        this.columns = Math.min(this.columnsMax, this.columns+1);
-      }
+      const columns = Math.floor((window.innerWidth - gap) / (columnWidth + gap));
+      this.compact = columns == 0;
+      this.columns = Math.max(1, Math.min(columns, this.columnsMax));
     },
   },
   beforeMount() {
-    setTimeout(() => {
-      this.resizeGrid();
-      this.resizeGrid();
-    });
+    setTimeout(() => this.resizeGrid());
     window.addEventListener('resize', this.resizeGrid);
   },
   unmounted() {

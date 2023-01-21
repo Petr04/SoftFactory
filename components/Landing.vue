@@ -34,7 +34,7 @@ img {
 }
 
 .landing {
-  padding: 5vw 40px;
+  padding: 96px 40px;
   box-sizing: border-box;
   width: 100%;
 
@@ -44,7 +44,7 @@ img {
 }
 
 .landing.tall {
-  height: calc(100vh - 80px + 20px);
+  min-height: calc(100vh - 80px + 20px);
 }
 
 #landing-block {
@@ -75,28 +75,19 @@ import { mapMutations } from 'vuex';
 export default {
   data: () => ({
     tall: false,
-    scrolled: false,
   }),
   methods: {
     resize() {
-      this.tall = window.innerHeight < 748
+      this.tall = window.innerHeight < 840
         && this.$refs.container.scrollHeight+40 <= window.innerHeight;
-    },
-    scroll() {
-      this.scrolled = window.scrollY != 0;
     },
     ...mapMutations(['setShowOrder']),
   },
   mounted() {
-    setTimeout(() => {
-      this.resize();
-      // this.$refs.vcontainer.style.height = this.$refs.innerContainer.offsetHeight + 'px';
-    });
-    window.addEventListener('scroll', this.scroll);
+    setTimeout(() => this.resize());
     window.addEventListener('resize', this.resize);
   },
   unmounted() {
-    window.removeEventListener('scroll', this.scroll);
     window.removeEventListener('resize', this.resize);
   },
 };

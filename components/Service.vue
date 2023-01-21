@@ -37,7 +37,7 @@
   flex-direction: column;
   font-size: 18px;
   gap: .75em;
-  border-radius: .5em;
+  border-radius: 20px;
   padding: 1em;
   background: white;
   color: #1e1e1e;
