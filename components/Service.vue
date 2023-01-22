@@ -1,10 +1,5 @@
 <template>
   <div class="hcontainer">
-<!--     <div
-      v-if="!iconRight"
-      class="icon"
-    >иконка</div>
- -->
     <div class="service">
       <div class="header">
         <h2>{{ title }}</h2>
@@ -23,11 +18,6 @@
         </link-no-update>
       </div>
     </div>
-
-    <div
-      v-if="iconRight"
-      class="icon"
-    >иконка</div>
   </div>
 </template>
 
@@ -54,14 +44,6 @@ h2 {
   margin-top: .25em;
 }
 
-.icon {
-  width: 6em;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .order {
   background: #1e1e1e;
   color: white;
@@ -83,7 +65,7 @@ import LinkNoUpdate from '@/components/LinkNoUpdate.vue';
 import { mapMutations } from 'vuex';
 
 export default {
-  props: ['title', 'description', 'price', 'name', 'iconRight'],
+  props: ['title', 'description', 'price', 'name'],
   components: { LinkNoUpdate },
   methods: {
     formatNumber,
