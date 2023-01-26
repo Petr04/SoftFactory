@@ -3,6 +3,7 @@
     <landing />
     <div class="container">
       <services :services="services" />
+      <portfolio :projects="projects" />
     </div>
 
     <order :show="showOrder" :services="services" />
@@ -43,12 +44,14 @@
 <script>
 import Landing from '@/components/Landing.vue';
 import Services from '@/components/Services.vue';
+import Portfolio from '@/components/Portfolio.vue';
 import { mapState, mapMutations } from 'vuex';
 
 export default {
   components: {
     Landing,
     Services,
+    Portfolio,
   },
   methods: {
     ...mapMutations(['setShowOrder']),
@@ -57,9 +60,18 @@ export default {
     ...mapState(['showOrder']),
   },
   async asyncData({ $axios }) {
-    const response = await $axios.$get('services');
-    const services = response.data.map(entry => entry.attributes);
-    return { services };
+    const services = (await $axios.$get('/api/services'))
+      .data.map(entry => entry.attributes);
+
+    const projects = (await $axios.$get('/api/projects?populate=*'))
+      .data.map(entry => ({
+        ...entry.attributes,
+        cover: $axios.defaults.baseURL
+          + entry.attributes.cover.data.attributes.formats.small.url,
+        services: entry.attributes.services.data.map(service => service.attributes.title),
+      }));
+
+    return { services, projects };
   },
 };
 </script>

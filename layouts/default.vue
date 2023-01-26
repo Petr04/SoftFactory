@@ -124,6 +124,23 @@ label a {
   text-decoration: underline;
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  gap: .75em;
+  border-radius: 20px;
+/*  padding: 1em;*/
+  background: white;
+  color: #1e1e1e;
+  width: 100%;
+}
+
+.card h2 {
+  margin: 0;
+  font-family: Montserrat;
+}
+
 .grecaptcha-badge {
   visibility: hidden !important;
 }
@@ -137,12 +154,6 @@ small a {
   text-decoration: underline;
 }
 
-/*i.uil {
-  display: flex !important;
-  align-items: center;
-  padding: 0;
-}
-*/
 i.uil {
   margin: -5px;
 }
@@ -163,7 +174,7 @@ i.uil {
   align-items: center;
 }
 
-body > div:not(#__nuxt) { /* recaptcha  */
+body > div:not(#__nuxt) { /* recaptcha */
   position: fixed !important;
   bottom: 0 !important;
   z-index: 2;

@@ -1,6 +1,6 @@
 <template>
   <div class="hcontainer">
-    <div class="service">
+    <div class="service card">
       <div class="header">
         <h2>{{ title }}</h2>
         <div class="price">
@@ -23,20 +23,7 @@
 
 <style scoped>
 .service {
-  display: flex;
-  flex-direction: column;
-  font-size: 18px;
-  gap: .75em;
-  border-radius: 20px;
   padding: 1em;
-  background: white;
-  color: #1e1e1e;
-  width: 100%;
-}
-
-h2 {
-  margin: 0;
-  font-family: Montserrat;
 }
 
 .price {

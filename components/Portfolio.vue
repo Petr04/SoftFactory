@@ -1,11 +1,10 @@
 <template>
   <div class="portfolio">
     <h1>Портфолио</h1>
-    <div class="portfolio-content">
-      <div class="portfolio-section">
-        
-      </div>
-    </div>
+    <columns-container-from-data
+      :data="projects"
+      :component="projectComponent"
+    />
   </div>
 </template>
 
@@ -13,7 +12,6 @@
 h1 {
   color: white;
   text-align: center;
-/*  margin-left: 2em;*/
 }
 
 .portfolio-content {
@@ -24,7 +22,11 @@ h1 {
 </style>
 
 <script>
+import Project from '@/components/Project.vue'
 export default {
   props: ['projects'],
+  data: () => ({
+    projectComponent: Project,
+  }),
 };
 </script>
