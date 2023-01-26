@@ -221,8 +221,8 @@
 }
 
 .order-submit-button.disabled {
-  background-color: white;
-  color: #1e1e1e;
+  background-color: #eee;
+  color: #aaa;
   cursor: default;
 }
 
