@@ -43,6 +43,7 @@ export default {
     '@nuxtjs/recaptcha',
     '@nuxtjs/dotenv',
     '@nuxtjs/axios',
+    '@nuxtjs/markdownit',
   ],
 
   recaptcha: {
@@ -58,6 +59,13 @@ export default {
         'Authorization': 'Bearer ' + process.env.API_TOKEN,
       },
     },
+  },
+
+  markdownit: {
+    preset: 'default',
+    linkify: true,
+    breaks: true,
+    injected: true,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

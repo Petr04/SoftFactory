@@ -63,12 +63,6 @@
   </div>
 </template>
 <style scoped>
-.content {
-  max-width: 900px;
-  margin: 0 auto;
-  overflow-x: auto;
-}
-
 ol {
   counter-reset: item;
 }

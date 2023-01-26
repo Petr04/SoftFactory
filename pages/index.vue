@@ -3,7 +3,10 @@
     <landing />
     <div class="container">
       <services :services="services" />
-      <portfolio :projects="projects" />
+      <portfolio
+        v-if="projects.length > 0"
+        :projects="projects"
+      />
     </div>
 
     <order :show="showOrder" :services="services" />
@@ -11,7 +14,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .container {
   --gap: 1.5em;
   display: flex;

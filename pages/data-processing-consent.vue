@@ -37,13 +37,6 @@
     </div>
   </div>
 </template>
-<style scoped>
-.content {
-  max-width: 700px;
-  margin: 0 auto;
-  overflow-x: auto;
-}
-</style>
 <script>
 export default {
   asyncData({ app, params, store }) {

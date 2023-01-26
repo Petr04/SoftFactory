@@ -58,6 +58,12 @@ h1 {
   font-size: 45px;
 }
 
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
 .paragraph {
   margin: 1em 0;
 }
@@ -139,6 +145,12 @@ label a {
 .card h2 {
   margin: 0;
   font-family: Montserrat;
+}
+
+.section-name {
+  font-style: italic;
+  font-family: Montserrat;
+  color: #aaa;
 }
 
 .grecaptcha-badge {

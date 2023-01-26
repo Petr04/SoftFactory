@@ -1,19 +1,12 @@
 <template>
-  <nuxt-link to="#">
+  <nuxt-link :to="'/project/' + name">
     <div class="project card">
       <img :src="cover">
-      <div class="content">
-        <div class="hcontainer project-chip-group">
-          <div
-            v-for="serviceName in services"
-            class="project-chip"
-          >
-            {{ serviceName }}
-          </div>
-        </div>
+      <div class="card-content">
+        <project-services :serviceNames="services" />
         <h2 class="title">{{ title }}</h2>
         <div class="task">
-          <i>Задача:</i>
+          <div class="section-name">Задача:</div>
           {{task}}
         </div>
       </div>
@@ -35,46 +28,44 @@
   width: 100%;
   border-radius: inherit;
   margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: 0 0;
 }
 
 .project:hover img {
   transform: scale(1.05);
 }
 
-.content {
+.card-content {
   display: flex;
   flex-direction: column;
+/*  gap: .55em;*/
   gap: inherit;
   padding: 1em;
   padding-top: 0;
 }
 
-.project-chip-group {
-  gap: .8em;
+.task {
+  color: #333;
 }
 
-.project-chip {
-  border-radius: 100vh;
-  font-family: Montserrat;
-  font-size: .8em;
-  background: #eee;
-  padding: .4em .8em;
-}
-
-.task i {
-  display: block;
-  font-family: Montserrat;
-  color: #aaa;
+.task .section-name {
+  margin-bottom: .25em;
+  font-size-adjust: 1px;
+  margin-top: -.2em;
 }
 </style>
 
 <script>
 import Chip from '@/components/Chip.vue';
+import ProjectServices from '@/components/ProjectServices.vue';
 
 export default {
-  props: ['title', 'task', 'description', 'cover', 'services'],
+  props: ['title', 'name', 'task', 'description', 'cover', 'services'],
   components: {
     Chip,
+    ProjectServices,
   },
 };
 </script>
