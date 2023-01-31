@@ -1,14 +1,25 @@
 <template>
   <div id="menubar">
     <nuxt-link
-      :to="$route.path.includes('order') ? '' : '/'"
+      to="/"
       @click.native="setShowOrder(false)"
     >
       <img src="/logo.png" height="30">
     </nuxt-link>
-    <div class="menu-items">
-      <!-- <a href="/#services">Услуги</a> -->
-      <!-- <a href="#">Портфолио</a> -->
+    <div
+      v-if="mobile"
+      class="hamburger-menu-button"
+      @click="showMenu = !showMenu"
+    >
+      <i class="uil uil-bars" />
+    </div>
+    <div
+      class="menu-items"
+      ref="menuItems"
+      :class="{ mobile, shown: mobile && showMenu }"
+    >
+      <a href="/#services">Услуги</a>
+      <a href="/#portfolio">Портфолио</a>
       <!-- <a href="#">Магазин шаблонов</a> -->
       <!-- <a href="#">Блог</a> -->
       <!-- <nuxt-link class="button" id="become-client" to="/order">Стать клиентом</nuxt-link> -->
@@ -32,6 +43,34 @@
   top: 0;
   left: 0;
   right: 0;
+  transform-style: preserve-3d;
+}
+
+.menu-items.mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+  border-radius: 0 0 20px 20px;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--menu-height);
+  transform: translateY(calc(-100% - var(--menu-height))) translateZ(-10px);
+
+  background: white;
+  box-shadow: 0px -20px 0px 0px white;
+  transition: .3s;
+}
+
+.menu-items.mobile.shown {
+  transform: none;
+}
+
+.hamburger-menu-button {
+  font-size: 1.5em;
+  cursor: pointer;
 }
 
 a {
@@ -39,7 +78,7 @@ a {
   font-weight: 500;
 }
 
-.menu-items a {
+.menu-items:not(.mobile) a {
   margin: 0 10px;
 }
 
@@ -52,9 +91,19 @@ a#become-client {
 import { mapMutations } from 'vuex';
 
 export default {
-  props: ['mobile'],
+  data: () => ({
+    mobile: false,
+    showMenu: false,
+  }),
   methods: {
+    onResize() {
+      this.mobile = window.innerWidth <= 710;
+    },
     ...mapMutations(['setShowOrder']),
   },
+  mounted() {
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+  }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="services">
+  <div class="services" id="services">
     <h1>Услуги</h1>
     <columns-container-from-data
       :data="services"

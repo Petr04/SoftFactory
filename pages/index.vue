@@ -43,7 +43,7 @@ export default {
       .data.map(entry => ({
         ...entry.attributes,
         cover: $axios.defaults.baseURL
-          + entry.attributes.cover.data.attributes.formats.small.url,
+          + entry.attributes.cover.data.attributes.formats.medium.url,
         services: entry.attributes.services.data.map(service => service.attributes),
       }));
 

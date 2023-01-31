@@ -1,5 +1,5 @@
 <template>
-  <div class="portfolio">
+  <div class="portfolio" id="portfolio">
     <h1>Портфолио</h1>
     <columns-container-from-data
       :data="projects"

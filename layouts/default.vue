@@ -222,7 +222,7 @@ export default {
     Order,
   },
   data: () => ({
-    mobile: false,
+    mobileMenu: false,
     services: null,
   }),
   head() {
@@ -233,18 +233,12 @@ export default {
     };
   },
   methods: {
-    resize() {
-      this.mobile = window.innerWidth <= 1160;
-    },
     ...mapMutations(['setShowOrder']),
   },
   computed: {
     ...mapState(['title', 'showOrder']),
   },
   mounted() {
-    this.resize();
-    window.addEventListener('resize', this.resize);
-
     const menuHeight = document.getElementById('menubar').offsetHeight;
     document.documentElement.style.setProperty('--menu-height', menuHeight + 'px');
 
