@@ -3,7 +3,10 @@
     <div class="project card">
       <img :src="cover">
       <div class="card-content">
-        <project-services :serviceNames="services" />
+        <project-services
+          :services="services"
+          onclick="event.preventDefault()"
+        />
         <h2 class="title">{{ title }}</h2>
         <div class="task">
           <div class="section-name">Задача:</div>
@@ -40,7 +43,6 @@
 .card-content {
   display: flex;
   flex-direction: column;
-/*  gap: .55em;*/
   gap: inherit;
   padding: 1em;
   padding-top: 0;

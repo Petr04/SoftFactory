@@ -2,7 +2,7 @@
   <div class="project-page white-container">
     <div class="content">
       <h1>{{ title }}</h1>
-      <project-services :serviceNames="services" />
+      <project-services :services="services" />
       <client-only>
         <table>
           <tr>
@@ -65,14 +65,13 @@ export default {
       + route.params.name);
 
     const props = response.data[0].attributes;
-    console.log(JSON.stringify(props, null, 2));
 
     return {
       ...props,
       description: props.description
         ? completeLinks($md.render(props.description), $axios.defaults.baseURL)
         : null,
-      services: props.services.data.map(service => service.attributes.title)
+      services: props.services.data.map(service => service.attributes)
     };
   }
 };

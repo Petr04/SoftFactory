@@ -282,7 +282,6 @@ export default {
       phone: '',
       description: '',
       personalData: false,
-      console,
 
       status: null,
       captchaError: false,
@@ -290,13 +289,6 @@ export default {
   },
   head() {
     return {
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.searchEngineDescription,
-        },
-      ],
     };
   },
   validations() {
@@ -364,11 +356,6 @@ export default {
       );
       return texts;
     },
-    searchEngineDescription() {
-      return this.service
-        ? this.serviceDict[this.service].description
-        : null;
-    },
   },
   methods: {
     ...mapMutations(['setTitle', 'setShowOrder', 'setService']),
@@ -408,6 +395,9 @@ export default {
   },
   watch: {
     service(service) {
+      if (this.$route.path != '/')
+        return;
+
       if (service) {
         history.replaceState({}, null, '/order/' + service);
         this.setTitle('Заказать ' + this.serviceDict[this.service].orderText);
@@ -418,8 +408,13 @@ export default {
       }
     },
     showOrder(showOrder) {
-      this.setTitle(showOrder ? 'Заказ' : null);
-      if (!showOrder) history.replaceState({}, null, '/');
+      if (!this.service || !showOrder)
+        this.setTitle(showOrder ? 'Заказ' : null);
+
+      if (!showOrder && this.$route.path == '/') {
+        this.setService(null);
+        history.replaceState({}, null, '/');
+      }
     },
   },
   mounted() {
@@ -428,17 +423,16 @@ export default {
     if (this.$route.path.includes('order'))
       this.setShowOrder(true);
 
+    if (!this.service)
+      this.setService(this.$route.path.split('/').filter(Boolean)[1]);
+
     this.$refs.order.style.setProperty('--menubar-height', menubar.offsetHeight + 'px');
 
     autosize(this.$refs.description);
 
-    if (!this.service)
-      this.setService(this.$route.path.split('/').filter(Boolean)[1]);
-
     document.addEventListener('keydown', event => {
       if (event.key == 'Escape') {
         this.setShowOrder(false);
-        history.replaceState({}, null, '/');
       }
     })
   },

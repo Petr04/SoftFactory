@@ -5,6 +5,9 @@
       <nuxt />
       <Footer />
     </div>
+
+    <order v-if="services" :show="showOrder" :services="services" />
+    <div class="dimmer" :class="{ active: showOrder }" @click="setShowOrder(false)" />
   </div>
 </template>
 
@@ -18,8 +21,8 @@
 }
 
 * {
+  /* Adds margin to the top of the viewport */
   scroll-margin-block-start: calc(var(--menu-height) + 40px);
-  /*Adds margin to the top of the viewport*/
 }
 
 html {
@@ -42,8 +45,6 @@ body, .dark-bg, .button.main, .order-submit-button {
 }
 
 #app {
-/*  width: 100%;*/
-/*  max-width: 2000px;*/
   margin: 0 auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -99,8 +100,6 @@ a {
 }
 
 .button.main {
-/*  if noise bg is turned off  */
-/*  background: #1e1e1e;*/
   color: white;
 }
 
@@ -136,7 +135,6 @@ label a {
   font-size: 18px;
   gap: .75em;
   border-radius: 20px;
-/*  padding: 1em;*/
   background: white;
   color: #1e1e1e;
   width: 100%;
@@ -191,13 +189,30 @@ body > div:not(#__nuxt) { /* recaptcha */
   bottom: 0 !important;
   z-index: 2;
 }
+
+.dimmer {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: #000000aa;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+.dimmer.active {
+  opacity: 1;
+  pointer-events: auto;
+}
 </style>
 
 <script>
 import Menubar from '@/components/Menubar.vue';
 import Footer from '@/components/Footer.vue';
 import Order from '@/components/Order.vue';
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'App',
@@ -208,6 +223,7 @@ export default {
   },
   data: () => ({
     mobile: false,
+    services: null,
   }),
   head() {
     return {
@@ -220,9 +236,10 @@ export default {
     resize() {
       this.mobile = window.innerWidth <= 1160;
     },
+    ...mapMutations(['setShowOrder']),
   },
   computed: {
-    ...mapState(['title']),
+    ...mapState(['title', 'showOrder']),
   },
   mounted() {
     this.resize();
@@ -230,6 +247,10 @@ export default {
 
     const menuHeight = document.getElementById('menubar').offsetHeight;
     document.documentElement.style.setProperty('--menu-height', menuHeight + 'px');
+
+    this.$axios.$get('/api/services').then(response => 
+      this.services = response.data.map(entry => entry.attributes)
+    );
   },
   unmounted() {
     window.removeEventListener('resize', this.resize);

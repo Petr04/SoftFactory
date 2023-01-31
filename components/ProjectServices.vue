@@ -1,10 +1,11 @@
 <template>
   <div class="hcontainer project-services">
     <div
-      v-for="serviceName in serviceNames"
+      v-for="service in services"
+      @click="() => { setService(service.name); setShowOrder(true); }"
       class="project-chip"
     >
-      {{ serviceName }}
+      {{ service.title }}
     </div>
   </div>
 </template>
@@ -20,11 +21,22 @@
   font-size: .8em;
   background: #eee;
   padding: .4em .8em;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.project-chip:hover {
+  background: #ccc;
 }
 </style>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
-  props: ['serviceNames'],
+  props: ['services'],
+  methods: {
+    ...mapMutations(['setService', 'setShowOrder']),
+  },
 };
 </script>
