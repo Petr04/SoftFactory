@@ -43,6 +43,7 @@ export default {
     '@nuxtjs/recaptcha',
     '@nuxtjs/dotenv',
     '@nuxtjs/axios',
+    '@nuxtjs/proxy',
     '@nuxtjs/markdownit',
   ],
 
@@ -53,13 +54,18 @@ export default {
   },
 
   axios: {
-    baseURL: process.env.API_URL || 'http://127.0.0.1:1337',
+    proxy: true,
     headers: {
       common: {
         'Authorization': 'Bearer ' + process.env.API_TOKEN,
       },
     },
   },
+
+  proxy: [
+    process.env.API_URL + '/api',
+    process.env.API_URL + '/uploads',
+  ],
 
   markdownit: {
     preset: 'default',

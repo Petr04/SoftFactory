@@ -42,8 +42,7 @@ export default {
     const projects = (await $axios.$get('/api/projects?populate=*'))
       .data.map(entry => ({
         ...entry.attributes,
-        cover: $axios.defaults.baseURL
-          + entry.attributes.cover.data.attributes.formats.medium.url,
+        cover: entry.attributes.cover.data.attributes.formats.medium.url,
         services: entry.attributes.services.data.map(service => service.attributes),
       }));
 

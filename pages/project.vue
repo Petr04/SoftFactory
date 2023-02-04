@@ -11,7 +11,7 @@
           </tr>
           <tr v-if="description">
             <th class="section-name">Описание:</th>
-            <td v-html="description"></td>
+            <td v-html="$md.render(description)"></td>
           </tr>
         </table>
       </client-only>
@@ -53,7 +53,6 @@ table {
 </style>
 
 <script>
-import completeLinks from '@/lib/completeLinks.js';
 import ProjectServices from '@/components/ProjectServices.vue';
 
 export default {
@@ -68,9 +67,6 @@ export default {
 
     return {
       ...props,
-      description: props.description
-        ? completeLinks($md.render(props.description), $axios.defaults.baseURL)
-        : null,
       services: props.services.data.map(service => service.attributes)
     };
   }
