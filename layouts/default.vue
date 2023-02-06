@@ -60,7 +60,7 @@ h1 {
 }
 
 .content {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   overflow-x: auto;
 }
@@ -73,7 +73,8 @@ h1 {
   box-shadow: 0px -50px 0px 0px white;
   background: white;
   color: #1e1e1eee;
-  padding: 40px 40px;
+/*  padding: 40px 40px;*/
+  padding: 1em;
   border-radius: 0 0 20px 20px;
 }
 

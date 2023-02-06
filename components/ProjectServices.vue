@@ -13,6 +13,7 @@
 <style scoped>
 .project-services {
   gap: .8em;
+  flex-wrap: wrap;
 }
 
 .project-chip {
