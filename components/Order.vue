@@ -141,14 +141,20 @@
 .order {
   --height: 100vh;
   overflow-y: scroll;
-  height: var(--height);
+/*  height: var(--height);*/
+  width: 100%;
+  height: 100%;
 
   position: fixed;
   z-index: 1;
   overscroll-behavior: contain;
-  bottom: calc(var(--height) * -1 - 25px);
+/*  bottom: calc(var(--height) * -1 - 25px);*/
+  top: 0;
+/*  bottom: 0;*/
   left: 0;
   right: 0;
+  bottom: 0;
+  transform: translateY(100%);
   margin: 0 auto;
   border-radius: 20px 20px 0 0;
   width: fit-content;
@@ -158,7 +164,8 @@
 }
 
 .order.show {
-  bottom: 0;
+/*  bottom: 0;*/
+  transform: translateY(0);
 }
 
 .order-form {
