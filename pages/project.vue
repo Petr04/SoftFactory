@@ -30,7 +30,6 @@ h1 {
 
 .project-container {
   display: table;
-  border-spacing: 2em 1em;
 }
 
 .project-container .section {
@@ -41,10 +40,18 @@ h1 {
   display: table-cell;
 }
 
+.section-name {
+  padding-right: 2em;
+  padding-bottom: .2em;
+}
+
+.section-content {
+  padding-bottom: 1em;
+}
+
 @media all and (max-width: 900px) {
   .project-container {
     display: block;
-    border-spacing: 0;
   }
 
   .section {
@@ -53,16 +60,6 @@ h1 {
 
   .section > * {
     display: block;
-  }
-
-  .section-content {
-    margin-bottom: 1em;
-  }
-}
-
-@media all and (min-width: 600px) and (max-width: 899.99px) {
-  .project-container {
-    padding: 0 1em;
   }
 }
 </style>
