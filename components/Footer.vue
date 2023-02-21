@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
-    <p>ИП Кириллов М.А.</p>
-    <p>ОГРНИП: 322554300028297</p>
+    <p>Copyright © 2022</p>
+    <p>Все права защищены</p>
   </div>
 </template>
 <style scoped>
