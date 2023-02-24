@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Host: soft-factory.ru
+Sitemap: https://backend.soft-factory.ru/sitemap/index.xml
