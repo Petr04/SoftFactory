@@ -1,7 +1,6 @@
 <template>
   <div
     class="columns-container"
-    :class="{ compact }"
     ref="columnsContainer"
   >
     <slot />
@@ -11,15 +10,17 @@
 <style scoped>
 .columns-container {
   --gap: 20px;
-  --column-width: 20em;
+  --column-width: 400px;
   display: flex;
   justify-content: center;
   padding: 0 var(--gap);
   gap: var(--gap);
 }
 
-.columns-container.compact {
-  padding: 0;
+@media all and (max-width: calc(400px + 2*20px)) {
+  .columns-container {
+    padding: 0;
+  }
 }
 </style>
 
@@ -29,13 +30,11 @@ export default {
   data() {
     return {
       columns: this.maxColumns,
-      compact: false,
     };
   },
   methods: {
     resizeGrid() {
       const columns = Math.floor((window.innerWidth - this.gap) / (this.columnWidth + this.gap));
-      this.compact = columns == 0;
       this.columns = Math.max(1, Math.min(columns, this.maxColumns));
 
       this.$refs.columnsContainer.style.setProperty(
