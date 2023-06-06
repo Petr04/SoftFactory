@@ -77,6 +77,11 @@ h1 {
   border-radius: 20px;
   margin: 3em auto;
 }
+
+.project-page a {
+  text-decoration: underline;
+  color: #aaa;
+}
 </style>
 
 <script>
