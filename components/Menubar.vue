@@ -6,7 +6,7 @@
     >
       <img src="/logo.png" height="30">
     </nuxt-link>
-    <div
+<!--     <div
       class="hamburger-menu-button"
       @click="showMenu = !showMenu"
     >
@@ -19,10 +19,11 @@
     >
       <a href="/#services">Услуги</a>
       <a href="/#portfolio">Портфолио</a>
-      <!-- <a href="#">Магазин шаблонов</a> -->
-      <!-- <a href="#">Блог</a> -->
-      <!-- <nuxt-link class="button" id="become-client" to="/order">Стать клиентом</nuxt-link> -->
+      <a href="#">Магазин шаблонов</a>
+      <a href="#">Блог</a>
+      <nuxt-link class="button" id="become-client" to="/order">Стать клиентом</nuxt-link>
     </div>
+ -->
   </div>
 </template>
 
