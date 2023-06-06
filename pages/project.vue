@@ -47,6 +47,7 @@ h1 {
 
 .section-content {
   padding-bottom: 1em;
+  color: #333;
 }
 
 @media all and (max-width: 900px) {
@@ -70,9 +71,11 @@ h1 {
 }
 
 .project-page img {
+  display: block;
   max-width: calc(100% - 2em);
+  max-height: 500px;
   border-radius: 20px;
-  margin: 1em;
+  margin: 3em auto;
 }
 </style>
 
