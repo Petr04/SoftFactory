@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <p>Copyright © 2022</p>
+    <p>Copyright © 2023</p>
     <p>Все права защищены</p>
   </div>
 </template>
