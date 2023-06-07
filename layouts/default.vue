@@ -246,6 +246,11 @@ export default {
     this.$axios.$get('/api/services').then(response => 
       this.services = response.data.map(entry => entry.attributes)
     );
+
+    this.$router.beforeEach((to, from, next) => {
+      setTimeout(() => window.scrollTo({top: 0}), 100);
+      next();
+    });
   },
   unmounted() {
     window.removeEventListener('resize', this.resize);
